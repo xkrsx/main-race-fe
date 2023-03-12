@@ -1,24 +1,25 @@
 import React from "react";
 import './Nav.css';
+import {NavLink} from "react-router-dom";
 
 export const Nav = () => {
     return (
         <nav>
             <ul>
                 <li>
-                <a href="https://pcmc2023.pl/">Główna</a>
+                    <a href="https://pcmc2023.pl/" target="_blank">Główna</a>
                 </li>
                 <li>
-                    <a href="https://pcmc2023.pl/">Logowanie</a>
+                    <NavLink to="/login">Logowanie</NavLink>
                 </li>
                 <li>
-                    <a href="https://pcmc2023.pl/">Wyniki</a>
+                    <NavLink to="/results">Wyniki</NavLink>
                 </li>
                 <li>
-                    <a href="https://pcmc2023.pl/">Admin</a>
+                    <NavLink to="/admin">Admin</NavLink>
                 </li>
                 <li>
-                    <a href="https://pcmc2023.pl/">English</a>
+                    <NavLink to="/english">English</NavLink>
                 </li>
             </ul>
         </nav>
