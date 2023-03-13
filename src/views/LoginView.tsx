@@ -2,6 +2,7 @@ import {CourierViewEntity} from "types";
 import React, {useEffect, useState} from "react";
 import {Spinner} from "../components/layout/common/Spinner/Spinner";
 import {JobsList} from "../components/layout/Login/JobsList";
+import "./LoginView.css";
 
 export const LoginView = () => {
     const [courierJobList, setCourierJobList] = useState<CourierViewEntity[] | null>(null);
@@ -21,8 +22,12 @@ export const LoginView = () => {
         return <Spinner/>;
     }
 
-    return <>
-        <h1>List of jobs</h1>
+    return <div className="jobs-wrapper">
+        <div className="new-job-btn">
+            <button>NEW JOB</button>
+        </div>
+        <h1>Unfinished Jobs</h1>
         <JobsList jobs={courierJobList} onJobsChange={refreshView}/>
-    </>
+        <h2>Finished Jobs</h2>
+    </div>
 }

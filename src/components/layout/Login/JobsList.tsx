@@ -1,6 +1,7 @@
 import React from 'react';
 import {CourierViewEntity} from 'types';
 import {JobsListRow} from "./JobsListRow";
+import './JobsList.css';
 
 interface Props {
     jobs: CourierViewEntity[];
@@ -19,6 +20,8 @@ export const JobsList = (props: Props) => (
             <th>Drop off</th>
             <th>Drop off code</th>
             <th>Points</th>
+            <th>Penalties</th>
+            <th>Finished</th>
         </tr>
         </thead>
         <tbody>
