@@ -10,16 +10,16 @@ export const Nav = () => {
                     <a href="https://pcmc2023.pl/" target="_blank">Główna</a>
                 </li>
                 <li>
-                    <NavLink to="/login">Logowanie</NavLink>
+                    <NavLink to="/login">Login</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/results">Wyniki</NavLink>
+                    <NavLink to="/results">Results</NavLink>
                 </li>
                 <li>
                     <NavLink to="/admin">Admin</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/english">English</NavLink>
+                    <NavLink to="/polish">Polish</NavLink>
                 </li>
             </ul>
         </nav>

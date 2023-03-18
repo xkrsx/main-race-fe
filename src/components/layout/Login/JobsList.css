@@ -7,11 +7,12 @@ table {
 td, th {
     border: 1px solid #ddd;
     padding: 20px;
+    border-radius: 5px;
 }
 
 thead tr th {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
+    text-align: center;
 
 }

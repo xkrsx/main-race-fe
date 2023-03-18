@@ -27,7 +27,7 @@ export const JobsList = (props: Props) => (
         <tbody>
         {
             props.jobs.map((job => (
-                <JobsListRow job={job} key={job.jobId} onJobsChange={props.onJobsChange}/>
+                <JobsListRow job={job} key={job.id} onJobsChange={props.onJobsChange}/>
             )))
         }
 

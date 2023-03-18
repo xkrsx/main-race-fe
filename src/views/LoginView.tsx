@@ -1,11 +1,23 @@
-import {CourierViewEntity} from "types";
-import React, {useEffect, useState} from "react";
+import {CourierViewEntity, SimpleCourierEntity} from "types";
+import React, {FormEvent, useEffect, useState} from "react";
 import {Spinner} from "../components/layout/common/Spinner/Spinner";
 import {JobsList} from "../components/layout/Login/JobsList";
 import "./LoginView.css";
 
 export const LoginView = () => {
+    const [form, setForm] = useState<Omit<SimpleCourierEntity, 'courierName' | 'category'>>({
+        courierNumber: 111,
+    });
+
+    const [loading, setLoading] = useState<boolean>(false);
     const [courierJobList, setCourierJobList] = useState<CourierViewEntity[] | null>(null);
+
+    const updateForm = (key: string, value: any) => {
+        setForm(form => ({
+            ...form,
+            [key]: value,
+        }));
+    };
 
     const refreshView = async () => {
         setCourierJobList(null);
@@ -18,16 +30,49 @@ export const LoginView = () => {
         refreshView();
     }, []);
 
-    if (courierJobList === null) {
+    const newJobForm = async (e: FormEvent) => {
+        e.preventDefault();
+
+        setLoading(true);
+
+        try {
+            const res = await fetch(`http://localhost:3001/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                //@TODO przenosić numer startowy jako JSON do API zamiast pobierać z inputa
+                body: JSON.stringify(form),
+            });
+            await refreshView();
+
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (courierJobList === null || loading) {
         return <Spinner/>;
     }
 
-    return <div className="jobs-wrapper">
-        <div className="new-job-btn">
-            <button>NEW JOB</button>
+    return (
+        <div className="jobs-wrapper">
+
+            <form onSubmit={newJobForm}>
+                <input
+                    type="number"
+                    value={form.courierNumber}
+                    onChange={e => updateForm('courierNumber', e.target.value)}
+                />
+                <div className="new-job-btn">
+                    <button>NEW JOB</button>
+                </div>
+            </form>
+
+            {/*@TODO rozdzielić tabele na unfinished i finished jobs*/}
+            <h1>Unfinished Jobs</h1>
+            <JobsList jobs={courierJobList} onJobsChange={refreshView}/>
+            <h2>Finished Jobs</h2>
         </div>
-        <h1>Unfinished Jobs</h1>
-        <JobsList jobs={courierJobList} onJobsChange={refreshView}/>
-        <h2>Finished Jobs</h2>
-    </div>
+    )
 }

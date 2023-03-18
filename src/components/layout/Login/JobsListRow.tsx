@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {CourierViewEntity} from 'types';
+import {CodeInput} from './CodeInput';
 import './JobsListRow.css';
 
 interface Props {
@@ -8,18 +9,22 @@ interface Props {
 }
 
 export const JobsListRow = (props: Props) => {
-    return (
-        <tr className="jobs">
-            <td>{props.job.jobNumber}</td>
-            <td>{props.job.cp_a_name}</td>
-            <td>{props.job.cp_a_code}</td>
-            <td>{props.job.cp_b_name}</td>
-            <td>{props.job.cp_b_code}</td>
-            <td>{props.job.cp_c_name}</td>
-            <td>{props.job.cp_c_code}</td>
-            <td>{props.job.jobPoints}</td>
-            <td>{props.job.jobPenalties}</td>
-            <td>{props.job.finished}</td>
-        </tr>
-    );
-};
+
+        return (
+            <tr className="jobs">
+                <td>{props.job.jobNumber}</td>
+                <td>{props.job.cp_a_name}</td>
+                <CodeInput code={props.job.cp_a_code}></CodeInput>
+                <td>{props.job.cp_b_name}</td>
+                <CodeInput code={props.job.cp_b_code}></CodeInput>
+                <td>{props.job.cp_c_name}</td>
+                <td>{props.job.cp_c_code}</td>
+                {/*<CodeInput code={props.job.cp_c_code}></CodeInput>*/}
+                <td>{props.job.jobPoints}</td>
+                <td>{props.job.jobPenalties}</td>
+                <td>{props.job.finished}</td>
+            </tr>
+        )
+            ;
+    }
+;

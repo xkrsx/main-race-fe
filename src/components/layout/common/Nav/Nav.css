@@ -2,7 +2,6 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: center;
-
 }
 
 ul {
@@ -11,6 +10,7 @@ ul {
     padding: 5px;
     overflow: hidden;
     background-color: #777777;
+    border-radius: 8px;
 }
 
 li {
