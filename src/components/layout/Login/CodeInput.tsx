@@ -1,34 +1,37 @@
 import React, {FormEvent, useEffect, useState} from "react";
-import {CourierViewEntity} from 'types';
+import {CourierViewEntity} from "types";
 import './CodeInput.css';
 
 interface Props {
+    jobNumber: undefined | number;
     code: undefined | number;
 }
 
 export const CodeInput = (props: Props) => {
     const [form, setForm] = useState<Props>({
+        //@TODO zrobić pobieranie numeru zadania z rodzica
+        jobNumber: undefined,
         code: undefined,
     });
     const [loading, setLoading] = useState<boolean>(false);
+    const [courierJobList, setCourierJobList] = useState<CourierViewEntity[] | null>(null);
 
-    // const onUpdateField = (e: FormEvent) => {
-    //     const nextFormState = {
-    //         ...form,
-    //         [key]: value,
-    //     };
-    //     setForm(nextFormState)
-    // };
+    const refreshView = async () => {
+        setCourierJobList(null);
+        const res = await fetch('http://localhost:3001/login');
+        const data = await res.json();
+        setCourierJobList(data.courierViewList);
+    };
+
+    useEffect(() => {
+        refreshView();
+    }, []);
 
     const onSubmitForm = (e: FormEvent) => {
         e.preventDefault();
         setLoading(true)
-        alert(JSON.stringify(form, null, 2));
     };
 
-    // const [visible, setVisible] = useState(true);
-    // const [courierJobList, setCourierJobList] = useState<CourierViewEntity[] | null>(null);
-    //
     const updateForm = (key: string, value: any) => {
         setForm(form => ({
             ...form,
@@ -36,52 +39,48 @@ export const CodeInput = (props: Props) => {
         }));
     };
 
-    // const refreshView = async () => {
-    //     setCourierJobList(null);
-    //     const res = await fetch('http://localhost:3001/login');
-    //     const data = await res.json();
-    //     setCourierJobList(data.courierViewList);
-    // };
+    const codeValidation = async (e: FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
 
-    // useEffect(() => {
-    //     refreshView();
-    // }, []);
+        if (Number(form.code) !== props.code) {
+            alert('Wrong code');
+        } else {
+            alert('good!')
+        }
 
-    // const codeApproved = () => {
-    //     setVisible((prev) => !prev);
-    // };
+        // try {
+        // //@TODO zmienić API: na BE stworzyć url do pobierania kodu z konkretnego zadania i tutaj to wstawić
+        //     const res = await fetch(`http://localhost:3001/login`, {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         // body: JSON.stringify(form.jobNumber),
+        //         body: JSON.stringify(form),
+        //     });
+        //
+        //     await refreshView();
+        // } finally {
+        //     setLoading(false);
+        // }
 
-    // const codeForm = (e: FormEvent) => {
-    //     e.preventDefault();
-    //
-    //     setLoading(true);
-    //
-    //     // if ((form.code_a).length >= 4) {
-    //     if (form.code === props.code) {
-    //         console.log('OK')
-    //         setVisible((prev) => !prev);
-    //         // codeApproved();
-    //         //@TODO wywołanie funkcji zamieniającej number input na zielone OK :)
-    //     }
-    //     // }
-    // };
+    };
 
     return (
-        <form onSubmit={onSubmitForm}>
+        <form onSubmit={codeValidation}>
             <label>
-                <td>
-                    {/*{visible &&*/}
+                <td className="code_td">
                     <input
                         type="number"
                         name={"code"}
                         value={form.code}
-                        // onChange={onUpdateField}
                         min={1000}
                         max={9999}
                         onChange={e => updateForm('code', e.target.value)}
+                        // style={{backgroundColor: codeValidation()}}
                     />
-
-                    {/*}*/}
+                    <button>VERIFY</button>
                 </td>
             </label>
         </form>

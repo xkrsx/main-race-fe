@@ -12,12 +12,12 @@ export const LoginView = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [courierJobList, setCourierJobList] = useState<CourierViewEntity[] | null>(null);
 
-    const updateForm = (key: string, value: any) => {
-        setForm(form => ({
-            ...form,
-            [key]: value,
-        }));
-    };
+    // const updateForm = (key: string, value: any) => {
+    //     setForm(form => ({
+    //         ...form,
+    //         [key]: value,
+    //     }));
+    // };
 
     const refreshView = async () => {
         setCourierJobList(null);
@@ -41,7 +41,7 @@ export const LoginView = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                //@TODO przenosić numer startowy jako JSON do API zamiast pobierać z inputa
+                //@TODO przenosić numer startowy jako JSON do API zamiast pobierać z useState
                 body: JSON.stringify(form),
             });
             await refreshView();
@@ -55,15 +55,19 @@ export const LoginView = () => {
         return <Spinner/>;
     }
 
+    console.log(courierJobList);
+
     return (
         <div className="jobs-wrapper">
+<div>NAME: {courierJobList[0].courierName}</div>
+<div>NR: {courierJobList[0].courierNumber}</div>
 
             <form onSubmit={newJobForm}>
-                <input
-                    type="number"
-                    value={form.courierNumber}
-                    onChange={e => updateForm('courierNumber', e.target.value)}
-                />
+                {/*<input*/}
+                {/*    type="number"*/}
+                {/*    value={form.courierNumber}*/}
+                {/*    onChange={e => updateForm('courierNumber', e.target.value)}*/}
+                {/*/>*/}
                 <div className="new-job-btn">
                     <button>NEW JOB</button>
                 </div>
