@@ -14,23 +14,21 @@ export const JobsList = (props: Props) => (
         <tr>
             <th>Job number</th>
             <th>Pick up</th>
-            <th>Pick up code</th>
+            <th>Code</th>
             <th>Drop off/middle stop</th>
-            <th>Drop off/middle stop code</th>
+            <th>Code</th>
             <th>Drop off</th>
-            <th>Drop off code</th>
+            <th>Code</th>
             <th>Points</th>
             <th>Penalties</th>
             <th>Finished</th>
         </tr>
         </thead>
-        <tbody>
-        {
+        <tbody>{
             props.jobs.map((job => (
                 <JobsListRow job={job} key={job.id} onJobsChange={props.onJobsChange}/>
             )))
         }
-
         </tbody>
 
     </table>

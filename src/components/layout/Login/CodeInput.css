@@ -1,16 +1,33 @@
 .code_td {
+    padding: 2px;
+}
+
+/*td div {*/
+/*    height: 4rem;*/
+/*    width: 6rem;*/
+/*    margin: 2px;*/
+/*    font-size: 2rem;*/
+/*}*/
+
+.incorrect_code {
     border: 1px solid #ddd;
-    /*width: 150px;*/
-    /*height: 100px;*/
     padding: 2px;
     border-radius: 5px;
     background-color: #ce7676;
 }
 
-.code_td input {
+.incorrect_code input {
     height: 4rem;
     width: 6rem;
     margin: 2px;
-    /*width: calc(100% - 2px);*/
     font-size: 2rem;
+}
+
+.correct_code {
+    width: 100%;
+    margin: 2px auto;
+    font-size: 3rem;
+    line-height: 4rem;
+    color: #fffdfd;
+    background-color: rgba(12, 101, 12, 0.84);
 }

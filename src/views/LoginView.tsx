@@ -55,19 +55,13 @@ export const LoginView = () => {
         return <Spinner/>;
     }
 
-    console.log(courierJobList);
-
     return (
         <div className="jobs-wrapper">
-<div>NAME: {courierJobList[0].courierName}</div>
-<div>NR: {courierJobList[0].courierNumber}</div>
+            {/*@TODO zrobić pobieranie imienia i numeru zawodnika z logowania*/}
+            {/*<div>NAME: {courierJobList[0].courierName}</div>*/}
+            {/*<div>NR: {courierJobList[0].courierNumber}</div>*/}
 
             <form onSubmit={newJobForm}>
-                {/*<input*/}
-                {/*    type="number"*/}
-                {/*    value={form.courierNumber}*/}
-                {/*    onChange={e => updateForm('courierNumber', e.target.value)}*/}
-                {/*/>*/}
                 <div className="new-job-btn">
                     <button>NEW JOB</button>
                 </div>
