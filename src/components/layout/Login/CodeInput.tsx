@@ -39,7 +39,7 @@ export const CodeInput = (props: Props) => {
 
             //@TODO przenieść zapisywanie do JobsListRow
             try {
-                await fetch(`http://localhost:3001/login/update/${props.id}`, {
+                await fetch(`http://localhost:3001/login/finishedA/${props.id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
