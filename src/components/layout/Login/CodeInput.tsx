@@ -3,14 +3,25 @@ import './CodeInput.css';
 
 interface Props {
     code: undefined | number;
+    id: undefined | string;
+    finished: boolean;
+}
+
+interface Form {
+    code: undefined | number;
 }
 
 export const CodeInput = (props: Props) => {
-    const [form, setForm] = useState<Props>({
+    const [form, setForm] = useState<Form>({
         code: undefined,
     });
     const [isCorrectCode, setIsCorrectCode] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
+
+    // @TODO odczytywać czy zadanie jest wykonane
+    // if (props.finished) {
+    //     setIsCorrectCode(true);
+    // }
 
     const updateForm = (key: string, value: any) => {
         setForm(form => ({
@@ -23,9 +34,21 @@ export const CodeInput = (props: Props) => {
         e.preventDefault();
         setLoading(true);
 
-        // @TODO zapisanie TRUE w bazie
         if (Number(form.code) === props.code) {
             setIsCorrectCode(true);
+
+            //@TODO przenieść zapisywanie do JobsListRow
+            try {
+                await fetch(`http://localhost:3001/login/update/${props.id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({finishedA: 1}),
+                });
+            } finally {
+                setLoading(false);
+            }
         }
     };
 
@@ -45,7 +68,6 @@ export const CodeInput = (props: Props) => {
                                     min={1000}
                                     max={9999}
                                     onChange={e => updateForm('code', e.target.value)}
-                                    // style={{backgroundColor: codeValidation()}}
                                 />
                                 <button>VERIFY</button>
                             </label>

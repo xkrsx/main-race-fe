@@ -15,13 +15,12 @@ export const JobsList = (props: Props) => (
             <th>Job number</th>
             <th>Pick up</th>
             <th>Code</th>
-            <th>Drop off/middle stop</th>
-            <th>Code</th>
             <th>Drop off</th>
+            <th>Code</th>
+            <th>Extra stop</th>
             <th>Code</th>
             <th>Points</th>
             <th>Penalties</th>
-            <th>Finished</th>
         </tr>
         </thead>
         <tbody>{
