@@ -1,6 +1,7 @@
-import React, {FormEvent, useState} from 'react';
+import React from 'react';
 import {CourierViewEntity} from 'types';
-import {CodeInput} from './CodeInput';
+import {CodeInputA} from './CodeInputA';
+import {CodeInputB} from "./CodeInputB";
 import './JobsListRow.css';
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 export const JobsListRow = (props: Props) => {
 
     //@TODO callback do przekazania do kodów: poprawny A włącza B, poprawny B aktualizuje finishedJob na 1 i ustawia kary na 0 albo włącza C, itd.
-    //@TODO poprawić i uruchomić ten callback, zamiast tego wewnątrz CodeInput?
+    //@TODO poprawić i uruchomić ten callback, zamiast tego wewnątrz CodeInputA?
     // const updateFinishedA = async () => {
     //     await fetch(`http://localhost:3001/login/update/${props.job.id}`, {
     //         method: 'PATCH',
@@ -30,25 +31,24 @@ export const JobsListRow = (props: Props) => {
         <tr className="jobs" key={props.job.id}>
             <td>{props.job.jobNumber}</td>
             <td>{props.job.cp_a_name}</td>
-            <CodeInput
+            <CodeInputA
                 code={props.job.cp_a_code}
                 id={props.job.id}
                 finished={props.job.finishedA}
                 // onCodeInput={updateFinishedA}
             />
             <td>{props.job.cp_b_name}</td>
-            <CodeInput
+            <CodeInputB
                 code={props.job.cp_b_code}
                 id={props.job.id}
                 finished={props.job.finishedB}
                 // onCodeInput={updateFinishedB}
-                // {/*@TODO zrobić disable input jeśli A nie jest poprawne*/}
-                // isVisible={}
+                // @TODO zrobić disable input jeśli A nie jest poprawne
             />
             <td>{props.job.cp_c_name}</td>
             <td>{props.job.cp_c_code}</td>
             {/*
-            <CodeInput
+            <CodeInputA
             code={props.job.cp_c_code}
             id={props.job.id}
             finished={props.job.finishedC}

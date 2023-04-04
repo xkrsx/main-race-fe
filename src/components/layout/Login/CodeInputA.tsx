@@ -1,27 +1,28 @@
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import './CodeInput.css';
 
 interface Props {
     code: undefined | number;
     id: undefined | string;
-    finished: boolean;
+    finished: any;
 }
 
 interface Form {
     code: undefined | number;
 }
 
-export const CodeInput = (props: Props) => {
+export const CodeInputA = (props: Props) => {
     const [form, setForm] = useState<Form>({
         code: undefined,
     });
     const [isCorrectCode, setIsCorrectCode] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
 
-    // @TODO odczytywać czy zadanie jest wykonane
-    // if (props.finished) {
-    //     setIsCorrectCode(true);
-    // }
+    useEffect(() => {
+        if (props.finished.data[0] === 1) {
+            setIsCorrectCode(true);
+        }
+    }, []);
 
     const updateForm = (key: string, value: any) => {
         setForm(form => ({
@@ -37,7 +38,6 @@ export const CodeInput = (props: Props) => {
         if (Number(form.code) === props.code) {
             setIsCorrectCode(true);
 
-            //@TODO przenieść zapisywanie do JobsListRow
             try {
                 await fetch(`http://localhost:3001/login/finishedA/${props.id}`, {
                     method: 'PATCH',
