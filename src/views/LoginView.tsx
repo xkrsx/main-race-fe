@@ -72,7 +72,7 @@ export const LoginView = () => {
             <h1>Unfinished Jobs</h1>
             <UnfinishedJobs jobs={courierJobList} onJobsChange={refreshView}/>
 
-            <h1>Finished Jobs</h1>
+            <h2>Finished Jobs</h2>
             <FinishedJobs jobs={courierJobList} onJobsChange={refreshView}/>
 
         </div>
