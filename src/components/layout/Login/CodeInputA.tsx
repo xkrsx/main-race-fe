@@ -4,7 +4,7 @@ import './CodeInput.css';
 interface Props {
     code: undefined | number;
     id: undefined | string;
-    finished: any;
+    finishedA: any;
 }
 
 interface Form {
@@ -19,7 +19,7 @@ export const CodeInputA = (props: Props) => {
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        if (props.finished.data[0] === 1) {
+        if (props.finishedA.data[0] === 1) {
             setIsCorrectCode(true);
         }
     }, []);

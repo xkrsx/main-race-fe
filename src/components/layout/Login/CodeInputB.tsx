@@ -4,7 +4,10 @@ import './CodeInput.css';
 interface Props {
     code: undefined | number;
     id: undefined | string;
-    finished: any;
+    finishedB: any;
+    //refreshes view in LoginView
+    onUpdate: () => void;
+    onValidation: (e: FormEvent) => Promise<void>;
 }
 
 interface Form {
@@ -18,6 +21,12 @@ export const CodeInputB = (props: Props) => {
     const [isCorrectCode, setIsCorrectCode] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
 
+    useEffect(() => {
+        if (props.finishedB.data[0] === 1) {
+            setIsCorrectCode(true);
+        }
+    }, []);
+
     const updateForm = (key: string, value: any) => {
         setForm(form => ({
             ...form,
@@ -26,33 +35,28 @@ export const CodeInputB = (props: Props) => {
     };
 
     const codeValidation = async (e: FormEvent) => {
-        console.log(props.finished.data[0]);
         e.preventDefault();
         setLoading(true);
 
+        //@TODO na potem: sprawdzenie czy nie ma checkpointu C: else if
         if (Number(form.code) === props.code) {
             setIsCorrectCode(true);
 
-            //@TODO przenieść zapisywanie do JobsListRow
             try {
                 await fetch(`http://localhost:3001/login/finishedB/${props.id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({finishedB: 1}),
+                    body: JSON.stringify({finishedB: 1, jobPenalties: 0, finishedJob: 1}),
                 });
             } finally {
+                props.onUpdate();
                 setLoading(false);
             }
         }
-    };
 
-    useEffect(() => {
-        if (props.finished.data[0] === 1) {
-            setIsCorrectCode(true);
-        }
-    }, []);
+    };
 
     return (<td className="code_td">
             {
@@ -61,7 +65,7 @@ export const CodeInputB = (props: Props) => {
                         <p>OK!</p>
                     </div>
                     : <div className="incorrect_code">
-                        <form onSubmit={codeValidation}>
+                        <form onSubmit={() => props.onValidation()}>
                             <label>
                                 <input
                                     type="number"

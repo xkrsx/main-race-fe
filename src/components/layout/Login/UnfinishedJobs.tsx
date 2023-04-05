@@ -12,8 +12,16 @@ export const UnfinishedJobs = (props: Props) => {
 
     const unfinishedJobs = props.jobs.filter(job => job.finishedJob === 0)
         .map(job =>
-            <JobsListRow job={job} key={job.id}
-                         onJobsChange={props.onJobsChange}/>
+            <JobsListRow
+                job={job}
+                key={job.id}
+                codeA={job.cp_a_code}
+                codeB={job.cp_b_code}
+                id={job.id}
+                finishedA={job.finishedA}
+                finishedB={job.finishedB}
+                onJobsChange={props.onJobsChange}
+            />
         )
 
     return (<table>

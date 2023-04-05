@@ -1,30 +1,59 @@
-import React from 'react';
+import React, {FormEvent, useState} from 'react';
 import {CourierViewEntity} from 'types';
 import {CodeInputA} from './CodeInputA';
 import {CodeInputB} from "./CodeInputB";
 import './JobsListRow.css';
 
 interface Props {
+    codeA: undefined | number;
+    codeB: undefined | number;
+    id: undefined | string;
+    finishedA: any;
+    finishedB: any;
     job: CourierViewEntity;
     onJobsChange: () => void;
 }
 
-export const JobsListRow = (props: Props) => {
+interface Form {
+    code: undefined | number;
+}
 
-    //@TODO callback do przekazania do kodów: poprawny A włącza B, poprawny B aktualizuje finishedJob na 1 i ustawia kary na 0 albo włącza C, itd.
-    //@TODO poprawić i uruchomić ten callback, zamiast tego wewnątrz CodeInputA?
-    // const updateFinishedA = async () => {
-    //     await fetch(`http://localhost:3001/login/update/${props.job.id}`, {
-    //         method: 'PATCH',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         //@TODO jak wbić tutaj boolean, że kod A jest poprawny
-    //         body: JSON.stringify({
-    //             finishedA: 1,
-    //         })
-    //     });
-    // };
+export const JobsListRow = (props: Props) => {
+    const [form, setForm] = useState<Form>({
+        code: undefined,
+    });
+    const [isCorrectCode, setIsCorrectCode] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const updateForm = (key: string, value: any) => {
+        setForm(form => ({
+            ...form,
+            [key]: value,
+        }));
+    };
+
+    const codeValidation = async (e: FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+
+        //@TODO na potem: sprawdzenie czy nie ma checkpointu C: else if
+        if (Number(form.code) === props.codeB) {
+            setIsCorrectCode(true);
+
+            try {
+                await fetch(`http://localhost:3001/login/finishedB/${props.id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({finishedB: 1, jobPenalties: 0, finishedJob: 1}),
+                });
+            } finally {
+            //@TODO odświeżanie pojedynczego wersa?
+                setLoading(false);
+            }
+        }
+    };
 
 
     return (
@@ -34,21 +63,25 @@ export const JobsListRow = (props: Props) => {
             <CodeInputA
                 code={props.job.cp_a_code}
                 id={props.job.id}
-                finished={props.job.finishedA}
-                // onCodeInput={updateFinishedA}
+                finishedA={props.job.finishedA}
             />
             <td>{props.job.cp_b_name}</td>
             <CodeInputB
                 code={props.job.cp_b_code}
                 id={props.job.id}
-                finished={props.job.finishedB}
-                // onCodeInput={updateFinishedB}
-                // @TODO zrobić disable input jeśli A nie jest poprawne
+                finishedB={props.job.finishedB}
+                onUpdate={props.onJobsChange}
+                onValidation={codeValidation}
             />
-            <td>{props.job.cp_c_name}</td>
-            <td>{props.job.cp_c_code}</td>
+            {/*if props.job.finishedA === 0 > finishedB input disabled*/}
+            {/*if props.job.finishedB === 1 */}
+            {/*{ finishedB === 0 && onCodeInput={updateFinishedB} }*/}
+            {/*@TODO zrobić disable input jeśli A nie jest poprawne*/}
+
+            {/*<td>{props.job.cp_c_name}</td>*/}
+            {/*<td>{props.job.cp_c_code}</td>*/}
             {/*
-            <CodeInputA
+            <CodeInputC
             code={props.job.cp_c_code}
             id={props.job.id}
             finished={props.job.finishedC}
@@ -56,7 +89,6 @@ export const JobsListRow = (props: Props) => {
             */}
             <td>{props.job.jobPoints}</td>
             <td>{props.job.jobPenalties}</td>
-            {/*<td>{props.job.finishedJob}</td>*/}
         </tr>
     );
 };
