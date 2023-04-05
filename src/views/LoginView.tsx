@@ -1,7 +1,8 @@
 import {CourierViewEntity, SimpleCourierEntity} from "types";
 import React, {FormEvent, useEffect, useState} from "react";
 import {Spinner} from "../components/layout/common/Spinner/Spinner";
-import {JobsList} from "../components/layout/Login/JobsList";
+import {UnfinishedJobs} from "../components/layout/Login/UnfinishedJobs";
+import {FinishedJobs} from "../components/layout/Login/FinishedJobs";
 import "./LoginView.css";
 
 export const LoginView = () => {
@@ -58,8 +59,9 @@ export const LoginView = () => {
     return (
         <div className="jobs-wrapper">
             {/*@TODO zrobić pobieranie imienia i numeru zawodnika z logowania*/}
-            {/*<div>NAME: {courierJobList[0].courierName}</div>*/}
-            {/*<div>NR: {courierJobList[0].courierNumber}</div>*/}
+            {/*<div className="courier_name">NAME: <p>{courierJobList[0].courierName}</p></div>*/}
+            {/*<div className="courier_number">NR: <p>{courierJobList[0].courierNumber}</p></div>*/}
+            {/*<div className="courier_category">CATEGORY: <p>{courierJobList[0].category}</p></div>*/}
 
             <form onSubmit={newJobForm}>
                 <div className="new-job-btn">
@@ -67,10 +69,12 @@ export const LoginView = () => {
                 </div>
             </form>
 
-            {/*@TODO rozdzielić tabele na unfinished i finished jobs*/}
             <h1>Unfinished Jobs</h1>
-            <JobsList jobs={courierJobList} onJobsChange={refreshView}/>
-            <h2>Finished Jobs</h2>
+            <UnfinishedJobs jobs={courierJobList} onJobsChange={refreshView}/>
+
+            <h1>Finished Jobs</h1>
+            <FinishedJobs jobs={courierJobList} onJobsChange={refreshView}/>
+
         </div>
     )
 }
