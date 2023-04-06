@@ -50,16 +50,20 @@ export const CodeInputB = (props: Props) => {
                     body: JSON.stringify({finishedB: 1, jobPenalties: 0, finishedJob: 1}),
                 });
             } finally {
-                props.onUpdate();
+                refreshView();
                 setLoading(false);
             }
         }
     };
 
-    const onSubmit = () => {
-        // codeValidation();
+    const refreshView = () => {
         props.onUpdate();
     }
+
+    // const onSubmit = () => {
+    //     codeValidation();
+    //     props.onUpdate();
+    // }
 
     return (<td className="code_td">
             {
@@ -68,7 +72,7 @@ export const CodeInputB = (props: Props) => {
                         <p>OK!</p>
                     </div>
                     : <div className="incorrect_code">
-                        <form onSubmit={() => onSubmit}>
+                        <form onSubmit={codeValidation}>
                             <label>
                                 <input
                                     type="number"
