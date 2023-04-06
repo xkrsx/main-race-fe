@@ -32,30 +32,6 @@ export const JobsListRow = (props: Props) => {
         }));
     };
 
-    const codeValidation = async (e: FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-
-        //@TODO na potem: sprawdzenie czy nie ma checkpointu C: else if
-        if (Number(form.code) === props.codeB) {
-            setIsCorrectCode(true);
-
-            try {
-                await fetch(`http://localhost:3001/login/finishedB/${props.id}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({finishedB: 1, jobPenalties: 0, finishedJob: 1}),
-                });
-            } finally {
-            //@TODO odświeżanie pojedynczego wersa?
-                setLoading(false);
-            }
-        }
-    };
-
-
     return (
         <tr className="jobs" key={props.job.id}>
             <td>{props.job.jobNumber}</td>
@@ -71,7 +47,6 @@ export const JobsListRow = (props: Props) => {
                 id={props.job.id}
                 finishedB={props.job.finishedB}
                 onUpdate={props.onJobsChange}
-                onValidation={codeValidation}
             />
             {/*if props.job.finishedA === 0 > finishedB input disabled*/}
             {/*if props.job.finishedB === 1 */}

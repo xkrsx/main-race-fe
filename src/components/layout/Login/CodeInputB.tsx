@@ -7,7 +7,6 @@ interface Props {
     finishedB: any;
     //refreshes view in LoginView
     onUpdate: () => void;
-    onValidation: (e: FormEvent) => Promise<void>;
 }
 
 interface Form {
@@ -55,8 +54,12 @@ export const CodeInputB = (props: Props) => {
                 setLoading(false);
             }
         }
-
     };
+
+    const onSubmit = () => {
+        // codeValidation();
+        props.onUpdate();
+    }
 
     return (<td className="code_td">
             {
@@ -65,7 +68,7 @@ export const CodeInputB = (props: Props) => {
                         <p>OK!</p>
                     </div>
                     : <div className="incorrect_code">
-                        <form onSubmit={() => props.onValidation()}>
+                        <form onSubmit={() => onSubmit}>
                             <label>
                                 <input
                                     type="number"

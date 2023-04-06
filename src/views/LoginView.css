@@ -33,3 +33,7 @@ h1, h2 {
     text-align: left;
     padding: 15px 0;
 }
+
+.courier_info p {
+font-weight: bold;
+}
