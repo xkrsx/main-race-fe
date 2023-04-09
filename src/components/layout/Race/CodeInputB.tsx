@@ -5,7 +5,7 @@ interface Props {
     code: undefined | number;
     id: undefined | string;
     finishedB: any;
-    //refreshes view in LoginView
+    //refreshes view in AccessView
     onUpdate: () => void;
 }
 
@@ -42,7 +42,7 @@ export const CodeInputB = (props: Props) => {
             setIsCorrectCode(true);
 
             try {
-                await fetch(`http://localhost:3001/login/finishedB/${props.id}`, {
+                await fetch(`http://localhost:3001/race/finishedB/${props.id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

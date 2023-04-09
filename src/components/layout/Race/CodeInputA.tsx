@@ -39,7 +39,7 @@ export const CodeInputA = (props: Props) => {
             setIsCorrectCode(true);
 
             try {
-                await fetch(`http://localhost:3001/login/finishedA/${props.id}`, {
+                await fetch(`http://localhost:3001/race/finishedA/${props.id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

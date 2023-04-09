@@ -7,10 +7,10 @@ export const Nav = () => {
         <nav>
             <ul>
                 <li>
-                    <a href="https://pcmc2023.pl/" target="_blank">Główna</a>
+                    <a href="https://pcmc2023.pl/" target="_blank">Home</a>
                 </li>
                 <li>
-                    <NavLink to="/login">Login</NavLink>
+                    <NavLink to="/race">Race</NavLink>
                 </li>
                 <li>
                     <NavLink to="/results">Results</NavLink>
@@ -18,9 +18,9 @@ export const Nav = () => {
                 <li>
                     <NavLink to="/admin">Admin</NavLink>
                 </li>
-                <li>
-                    <NavLink to="/polish">Polish</NavLink>
-                </li>
+                {/*<li>*/}
+                {/*    <NavLink to="/polish">Polish</NavLink>*/}
+                {/*</li>*/}
             </ul>
         </nav>
     )
