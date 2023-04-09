@@ -10,7 +10,7 @@ export const Nav = () => {
                     <a href="https://pcmc2023.pl/" target="_blank">Home</a>
                 </li>
                 <li>
-                    <NavLink to="/race">Race</NavLink>
+                    <NavLink to="/login">Race</NavLink>
                 </li>
                 <li>
                     <NavLink to="/results">Results</NavLink>
