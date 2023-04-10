@@ -1,11 +1,31 @@
 import React, {FormEvent, useState} from "react";
 import {FormikErrors, useFormik} from "formik";
-
+import {LoginCourierEntity} from "types";
 
 interface Values {
     courierNumber: number | undefined;
     password: number | undefined;
 }
+
+const validate = (values: Values) => {
+    const errors: FormikErrors<{ [field: string]: any }> = {};
+    if (values.courierNumber === undefined) {
+        errors.courierNumber = 'Required.';
+    } else if (values.courierNumber < 1) {
+        errors.courierNumber = 'Courier number must be higher than 1.';
+    } else if (values.courierNumber > 999) {
+        errors.courierNumber = 'Courier number must be lower than 1000.';
+    }
+
+    if (values.password === undefined) {
+        errors.password = 'Required';
+    } else if (values.password < 1000) {
+        errors.password = 'Password must have 4 digits and be higher than 1000.';
+    } else if (values.password > 9999) {
+        errors.password = 'Password must have 4 digits and be lower than 9999';
+    }
+    return errors;
+};
 
 export const Login = () => {
     const [isPwdPreview, setIsPwdPreview] = useState(false);
@@ -15,27 +35,8 @@ export const Login = () => {
         text: '',
     });
 
-    const validate = (values: Values) => {
-        const errors: FormikErrors<{ [field: string]: any }> = {};
-        if (values.courierNumber === undefined) {
-            errors.courierNumber = 'Required.';
-        } else if (values.courierNumber < 1) {
-            errors.courierNumber = 'Courier number must be higher than 1.';
-        } else if (values.courierNumber > 999) {
-            errors.courierNumber = 'Courier number must be lower than 1000.';
-        }
-
-        if (values.password === undefined) {
-            errors.password = 'Required';
-        } else if (values.password < 1000) {
-            errors.password = 'Password must have 4 digits and be higher than 1000.';
-        } else if (values.password > 9999) {
-            errors.password = 'Password must have 4 digits and be lower than 9999';
-        }
-        return errors;
-    };
-
     const {display, backgroundColor, text} = checkLoginBox;
+
 
     const formikLogin = useFormik({
         initialValues: {
@@ -44,15 +45,26 @@ export const Login = () => {
         },
         validate,
         onSubmit: values => {
-            // alert(JSON.stringify(values, null, 2));
-            //@TODO funkcja która waliduje login z DB, podaje że jest niepoprawny albo przekierowuje dalej
-            window.location.replace(`/race/${values.courierNumber}/${values.password}`);
+            const validateCredentials = async () => {
+                const res = await fetch(`http://localhost:3001/login/${values.courierNumber}/${values.password}`);
+                const data = await res.json();
 
-            setCheckLoginBox({
-                display: 'block',
-                backgroundColor: 'green',
-                text: 'Successfully logged in!',
-            });
+                if (data.loginView === true) {
+                    window.location.replace(`/race/${values.courierNumber}/${values.password}`);
+                    setCheckLoginBox({
+                        display: 'block',
+                        backgroundColor: 'green',
+                        text: 'Successfully logged in!',
+                    });
+                } else {
+                    setCheckLoginBox({
+                        display: 'block',
+                        backgroundColor: 'red',
+                        text: 'Wrong credentials!',
+                    });
+                }
+            };
+            validateCredentials();
         }
     });
 
