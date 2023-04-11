@@ -3,9 +3,12 @@ import './CodeInput.css';
 import {FormikErrors, useFormik} from "formik";
 
 interface Props {
+    courierNumber: number;
     code: undefined | number;
     id: undefined | string;
     finishedB: any;
+    points: number;
+    jobPenalties: number;
     onUpdate: () => void;
 }
 
@@ -52,7 +55,7 @@ export const CodeInputB = (props: Props) => {
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({finishedB: 1, jobPenalties: 0, finishedJob: 1}),
+                        body: JSON.stringify({courierNumber: props.courierNumber, finishedB: 1, jobPenalties: props.jobPenalties, finishedJob: 1, jobPoints: props.points}),
                     });
                 } finally {
                     setLoading(false);
