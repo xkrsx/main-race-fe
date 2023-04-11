@@ -3,10 +3,12 @@ import React, {useEffect, useState} from "react";
 import {Spinner} from "../components/layout/common/Spinner/Spinner";
 import {UnfinishedJobs} from "../components/layout/Race/UnfinishedJobs";
 import {FinishedJobs} from "../components/layout/Race/FinishedJobs";
-import "./AccessView.css";
 import {useParams} from "react-router-dom";
 import {useFormik} from "formik";
 import {AccessPanel} from "../components/layout/AccessPanel/AccessPanel";
+import "./RaceView.css";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faArrowRotateRight} from '@fortawesome/free-solid-svg-icons'
 
 export const RaceView = () => {
     const {courierNumber, password} = useParams();
@@ -101,17 +103,26 @@ export const RaceView = () => {
                             }
                         </div>
                     </div>
-
-                    {Number(jobCount()) < 5 ?
-                        (<form onSubmit={formikNewJob.handleSubmit}>
-                            <div className="new-job-btn">
-                                <button>OPEN NEW JOB</button>
+                    <div className="new-job-btn">
+                        {Number(jobCount()) < 5 ?
+                            (<div>
+                                <form onSubmit={formikNewJob.handleSubmit}>
+                                    <div>
+                                        <button>OPEN NEW JOB</button>
+                                    </div>
+                                </form>
+                            </div>)
+                            : (<div>
+                                <button>MAX 5 OPEN JOBS!</button>
+                            </div>)
+                        }
+                        <form>
+                            <div className="refresh-btn">
+                                <button><FontAwesomeIcon icon={faArrowRotateRight} /> refresh list
+                                </button>
                             </div>
-                        </form>)
-                        : (<div className="new-job-btn">
-                            <button>MAX 5 OPEN JOBS!</button>
-                        </div>)
-                    }
+                        </form>
+                    </div>
 
                     <h1>Unfinished Jobs</h1>
                     <UnfinishedJobs jobs={courierJobList} onJobsChange={refreshView}/>
