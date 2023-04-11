@@ -1,6 +1,5 @@
 import React, {FormEvent, useState} from "react";
 import {FormikErrors, useFormik} from "formik";
-import {LoginCourierEntity} from "types";
 
 interface Values {
     courierNumber: number | undefined;
@@ -37,7 +36,6 @@ export const Login = () => {
 
     const {display, backgroundColor, text} = checkLoginBox;
 
-
     const formikLogin = useFormik({
         initialValues: {
             courierNumber: undefined,
@@ -46,11 +44,11 @@ export const Login = () => {
         validate,
         onSubmit: values => {
             const validateCredentials = async () => {
-                const res = await fetch(`http://localhost:3001/login/${values.courierNumber}/${values.password}`);
+                const res = await fetch(`http://localhost:3001/login/${formikLogin.values.courierNumber}/${formikLogin.values.password}`);
                 const data = await res.json();
 
                 if (data.loginView === true) {
-                    window.location.replace(`/race/${values.courierNumber}/${values.password}`);
+                    window.location.replace(`/race/${formikLogin.values.courierNumber}/${formikLogin.values.password}`);
                     setCheckLoginBox({
                         display: 'block',
                         backgroundColor: 'green',
@@ -93,7 +91,7 @@ export const Login = () => {
                         onChange={formikLogin.handleChange}
                     />
                 </label>
-                {formikLogin.errors.courierNumber ? <div>{formikLogin.errors.courierNumber}</div> : null}
+                {formikLogin.errors.courierNumber ? <div className="login-error">{formikLogin.errors.courierNumber}</div> : null}
                 <hr/>
                 <label>
                     <p>password:</p>
@@ -107,7 +105,7 @@ export const Login = () => {
                         onChange={formikLogin.handleChange}
                     />
                 </label>
-                {formikLogin.errors.password ? <div>{formikLogin.errors.password}</div> : null}
+                {formikLogin.errors.password ? <div className="login-error">{formikLogin.errors.password}</div> : null}
 
                 <div>
                     <button type="submit">Log in</button>
@@ -118,9 +116,6 @@ export const Login = () => {
 
                 <div style={{backgroundColor, display}}>
                     <p>{text}</p>
-                    <p>
-
-                    </p>
                 </div>
             </form>
 
