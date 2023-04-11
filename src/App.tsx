@@ -2,17 +2,19 @@ import React from 'react';
 import './App.css';
 import {Header} from "./components/layout/common/Header/Header";
 import {Route, Routes} from "react-router-dom";
-import {LoginView} from "./views/LoginView";
+import {AccessView} from "./views/AccessView";
+import {RaceView} from "./views/RaceView";
 
 export const App = () => {
     return (
         <>
             <Header/>
             <Routes>
-                <Route path="/login" element={<LoginView/>}/>
+                <Route path="/" element={<AccessView/>}/>
+                <Route path="/login" element={<AccessView/>}/>
+                <Route path="/race/:courierNumber/:password" element={<RaceView/>}/>
                 {/*<Route path="/results" element={<ResultsView/>}/>*/}
                 {/*<Route path="/admin" element={<AdminView/>}/>*/}
-                {/*<Route path="/english" element={<EnglishView/>}/>*/}
             </Routes>
         </>
     )

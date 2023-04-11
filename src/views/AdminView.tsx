@@ -1,5 +1,3 @@
 import React from "react";
 
-export const AdminView = () => {
-return <>admin</>
-}
+export const AdminView = () => <>admin</>
