@@ -12,18 +12,20 @@ import {faArrowRotateRight} from '@fortawesome/free-solid-svg-icons'
 
 export const RaceView = () => {
     const {courierNumber, password} = useParams();
-    const [credentials, setCredentials] = useState(true);
-    const [loading, setLoading] = useState<boolean>(false);
     const [courierJobList, setCourierJobList] = useState<CourierViewEntity[] | null>(null);
+    const [isCorrect, setIsCorrect] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
 
+    //@TODO pobieranie podstawowych danych o kurierze do sekcji info
     const validateCredentials = async () => {
         const res = await fetch(`http://localhost:3001/login/${courierNumber}/${password}`);
         const data = await res.json();
 
         if (data.loginView === true) {
             await refreshView();
+            setIsCorrect(true);
         } else {
-            setCredentials(false);
+            setIsCorrect(false);
         }
     };
 
@@ -36,7 +38,7 @@ export const RaceView = () => {
 
     useEffect(() => {
         validateCredentials();
-        // refreshView();
+        refreshView();
     }, []);
 
     const jobCount = () => {
@@ -71,13 +73,20 @@ export const RaceView = () => {
     }
 
     return (
-        !credentials ?
+        !(isCorrect) ?
             <AccessPanel/>
             : (
                 <div className="jobs-wrapper">
                     {/*//@TODO zrobić jeden komponent dla pojedynczych informacji o kurierach*/}
                     {/*//@TODO poprawić wyświetlanie: jeśli dane logowania są poprawne, dodać komunikat, o tym, żeby kliknąć przycisk dodaj nowe zadanie */}
                     <div className="courier_info">
+                        {/*<CourierInfo info={courierName}/>*/}
+                        {/*<CourierInfo info={courierNumber}/>*/}
+                        {/*<CourierInfo info={category}/>*/}
+                        {/*<CourierInfo info={courierPoints}/>*/}
+                        {/*<CourierInfo info={courierPenalties}/>*/}
+                        {/*<CourierInfo info={courierPoints} info={courierPenalties}/>*/}
+
                         <div className="courier_info">NAME:
                             {courierJobList[0] ?
                                 <p>{courierJobList[0].courierName}</p>
@@ -86,7 +95,7 @@ export const RaceView = () => {
                         </div>
                         <div className="courier_info">NR:
                             {courierJobList[0] ?
-                                <p>{courierJobList[0].courierNumber}</p>
+                                <p>{courierNumber}</p>
                                 : <p>click Race in menu to log in</p>
                             }
                         </div>
@@ -96,10 +105,21 @@ export const RaceView = () => {
                                 : <p>click Race in menu to log in</p>
                             }
                         </div>
-                        {/*//@TODO zrobić BE mysql SUM dla liczenia punktów (punkty minus kary), który się odświeża wraz z odświeżeniem listy zadań!*/}
                         <div className="courier_points">POINTS:
                             {courierJobList[0] ?
-                                <p>{courierJobList[0].jobPoints}</p>
+                                <p>{courierJobList[0].courierPoints}</p>
+                                : <p>click Race in menu to log in</p>
+                            }
+                        </div>
+                        <div className="courier_penalties">POINTS:
+                            {courierJobList[0] ?
+                                <p>{courierJobList[0].courierPenalties}</p>
+                                : <p>click Race in menu to log in</p>
+                            }
+                        </div>
+                        <div className="courier_penalties">SUM:
+                            {courierJobList[0] ?
+                                <p>{courierJobList[0].courierPoints - courierJobList[0].courierPenalties}</p>
                                 : <p>click Race in menu to log in</p>
                             }
                         </div>

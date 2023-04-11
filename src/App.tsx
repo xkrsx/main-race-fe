@@ -4,6 +4,7 @@ import {Header} from "./components/layout/common/Header/Header";
 import {Route, Routes} from "react-router-dom";
 import {AccessView} from "./views/AccessView";
 import {RaceView} from "./views/RaceView";
+import {ResultsView} from "./views/ResultsView";
 
 export const App = () => {
     return (
@@ -13,7 +14,7 @@ export const App = () => {
                 <Route path="/" element={<AccessView/>}/>
                 <Route path="/login" element={<AccessView/>}/>
                 <Route path="/race/:courierNumber/:password" element={<RaceView/>}/>
-                {/*<Route path="/results" element={<ResultsView/>}/>*/}
+                <Route path="/results" element={<ResultsView/>}/>
                 {/*<Route path="/admin" element={<AdminView/>}/>*/}
             </Routes>
         </>
