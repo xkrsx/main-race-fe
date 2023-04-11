@@ -33,3 +33,7 @@ input {
     color: #fffdfd;
     background-color: rgb(173, 159, 160);
 }
+
+.code-error {
+    color: #171616;
+}

@@ -1,5 +1,3 @@
 import React from "react";
 
-export const ResultsView = () => {
-return <>results</>
-}
+export const ResultsView = () => <>results</>

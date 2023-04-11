@@ -10,6 +10,7 @@ export const App = () => {
         <>
             <Header/>
             <Routes>
+                <Route path="/" element={<AccessView/>}/>
                 <Route path="/login" element={<AccessView/>}/>
                 <Route path="/race/:courierNumber/:password" element={<RaceView/>}/>
                 {/*<Route path="/results" element={<ResultsView/>}/>*/}

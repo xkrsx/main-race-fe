@@ -1,22 +1,32 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import './CodeInput.css';
+import {FormikErrors, useFormik} from "formik";
 
 interface Props {
     code: undefined | number;
     id: undefined | string;
     finishedB: any;
-    //refreshes view in AccessView
     onUpdate: () => void;
 }
 
-interface Form {
+interface Values {
     code: undefined | number;
 }
 
+const validate = (values: Values) => {
+    const errors: FormikErrors<{ [field: string]: any }> = {};
+    if (values.code === undefined) {
+        errors.courierNumber = 'Required.';
+    } else if (values.code < 1000) {
+        errors.code = 'Code must be higher than 1000.';
+    } else if (values.code > 9999) {
+        errors.code = 'Code must be lower than 9999.';
+    }
+
+    return errors;
+}
+
 export const CodeInputB = (props: Props) => {
-    const [form, setForm] = useState<Form>({
-        code: undefined,
-    });
     const [isCorrectCode, setIsCorrectCode] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -26,44 +36,37 @@ export const CodeInputB = (props: Props) => {
         }
     }, []);
 
-    const updateForm = (key: string, value: any) => {
-        setForm(form => ({
-            ...form,
-            [key]: value,
-        }));
-    };
+    const formikCodeInput = useFormik({
+        initialValues: {
+            code: undefined,
+        },
+        validate,
+        onSubmit: async (values) => {
+            setLoading(true);
+            if (Number(formikCodeInput.values.code) === props.code) {
+                setIsCorrectCode(true);
 
-    const codeValidation = async (e: FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-
-        //@TODO na potem: sprawdzenie czy nie ma checkpointu C: else if
-        if (Number(form.code) === props.code) {
-            setIsCorrectCode(true);
-
-            try {
-                await fetch(`http://localhost:3001/race/finishedB/${props.id}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({finishedB: 1, jobPenalties: 0, finishedJob: 1}),
-                });
-            } finally {
-                refreshView();
-                setLoading(false);
+                try {
+                    await fetch(`http://localhost:3001/race/finishedB/${props.id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({finishedB: 1, jobPenalties: 0, finishedJob: 1}),
+                    });
+                } finally {
+                    setLoading(false);
+                }
             }
         }
-    };
+    });
 
     const refreshView = () => {
-        props.onUpdate();
-    }
+        setTimeout(() => {
+            props.onUpdate();
+        }, 500);
 
-    // const onSubmit = () => {
-    //     codeValidation();
-    //     props.onUpdate();
-    // }
+    }
 
     return (<td className="code_td">
             {
@@ -72,18 +75,19 @@ export const CodeInputB = (props: Props) => {
                         <p>OK!</p>
                     </div>
                     : <div className="incorrect_code">
-                        <form onSubmit={codeValidation}>
+                        <form onSubmit={formikCodeInput.handleSubmit}>
                             <label>
                                 <input
                                     type="number"
                                     name={"code"}
-                                    value={form.code}
+                                    value={formikCodeInput.values.code}
                                     min={1000}
                                     max={9999}
-                                    onChange={e => updateForm('code', e.target.value)}
+                                    onChange={formikCodeInput.handleChange}
                                 />
-                                <button>VERIFY</button>
+                                <button onClick={() => refreshView()}>VERIFY</button>
                             </label>
+                            {!isCorrectCode ? <div className="code-error">{formikCodeInput.errors.code}</div> : null}
                         </form>
                     </div>
             }

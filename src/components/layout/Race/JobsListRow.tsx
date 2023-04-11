@@ -22,6 +22,7 @@ export const JobsListRow = (props: Props) => {
             code={props.job.cp_a_code}
             id={props.job.id}
             finishedA={props.job.finishedA}
+            onUpdate={props.onJobsChange}
         />
         <td>{props.job.cp_b_name}</td>
 
@@ -37,11 +38,6 @@ export const JobsListRow = (props: Props) => {
                 </div>
             )
         }
-
-        {/*if props.job.finishedA === 0 > finishedB input disabled*/}
-        {/*if props.job.finishedB === 1 */}
-        {/*{ finishedB === 0 && onCodeInput={updateFinishedB} }*/}
-        {/*@TODO zrobić disable input jeśli A nie jest poprawne*/}
 
         {/*<td>{props.job.cp_c_name}</td>*/}
         {/*<td>{props.job.cp_c_code}</td>*/}

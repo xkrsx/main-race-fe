@@ -1,11 +1,11 @@
-import {CourierViewEntity} from "types";
 import React, {useEffect, useState} from "react";
-import {Spinner} from "../components/layout/common/Spinner/Spinner";
-import {UnfinishedJobs} from "../components/layout/Race/UnfinishedJobs";
-import {FinishedJobs} from "../components/layout/Race/FinishedJobs";
+import {CourierViewEntity} from "types";
 import {useParams} from "react-router-dom";
 import {useFormik} from "formik";
 import {AccessPanel} from "../components/layout/AccessPanel/AccessPanel";
+import {UnfinishedJobs} from "../components/layout/Race/UnfinishedJobs";
+import {FinishedJobs} from "../components/layout/Race/FinishedJobs";
+import {Spinner} from "../components/layout/common/Spinner/Spinner";
 import "./RaceView.css";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faArrowRotateRight} from '@fortawesome/free-solid-svg-icons'
@@ -36,7 +36,7 @@ export const RaceView = () => {
 
     useEffect(() => {
         validateCredentials();
-        refreshView();
+        // refreshView();
     }, []);
 
     const jobCount = () => {
@@ -76,6 +76,7 @@ export const RaceView = () => {
             : (
                 <div className="jobs-wrapper">
                     {/*//@TODO zrobić jeden komponent dla pojedynczych informacji o kurierach*/}
+                    {/*//@TODO poprawić wyświetlanie: jeśli dane logowania są poprawne, dodać komunikat, o tym, żeby kliknąć przycisk dodaj nowe zadanie */}
                     <div className="courier_info">
                         <div className="courier_info">NAME:
                             {courierJobList[0] ?
@@ -95,7 +96,7 @@ export const RaceView = () => {
                                 : <p>click Race in menu to log in</p>
                             }
                         </div>
-                        {/*//@TODO zrobić BE mysql SUM dla liczenia punktów (punkty - kary), który się odświeża wraz z odświeżeniem listy zadań!*/}
+                        {/*//@TODO zrobić BE mysql SUM dla liczenia punktów (punkty minus kary), który się odświeża wraz z odświeżeniem listy zadań!*/}
                         <div className="courier_points">POINTS:
                             {courierJobList[0] ?
                                 <p>{courierJobList[0].jobPoints}</p>
@@ -108,7 +109,12 @@ export const RaceView = () => {
                             (<div>
                                 <form onSubmit={formikNewJob.handleSubmit}>
                                     <div>
-                                        <button>OPEN NEW JOB</button>
+                                        <button>OPEN NEW JOB
+                                            (
+                                            {5 - Number(jobCount())}
+                                            )
+                                        </button>
+
                                     </div>
                                 </form>
                             </div>)
@@ -118,7 +124,7 @@ export const RaceView = () => {
                         }
                         <form>
                             <div className="refresh-btn">
-                                <button><FontAwesomeIcon icon={faArrowRotateRight} /> refresh list
+                                <button><FontAwesomeIcon icon={faArrowRotateRight}/> refresh list
                                 </button>
                             </div>
                         </form>
