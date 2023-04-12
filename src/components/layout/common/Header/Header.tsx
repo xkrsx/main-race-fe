@@ -1,13 +1,13 @@
 import React from "react";
-import {Logo} from "./Logo";
-import {Nav} from "./Nav";
 import './Header.css';
+import {Nav} from "../Nav/Nav";
+import {Logo} from "../Logo/Logo";
 
 export const Header = () => {
     return (
-        <header>
+        <>
             <Logo/>
             <Nav/>
-        </header>
+        </>
     )
 };

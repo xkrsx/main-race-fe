@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "types": [
-        "../main-race-fe/types"
+        "../main-race-be/types"
       ]
     }
   }

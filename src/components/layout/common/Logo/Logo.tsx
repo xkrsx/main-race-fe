@@ -1,5 +1,5 @@
-import gryf from "../../assets/img/gryf-trans.png";
-import napis from "../../assets/img/pcmc-napis-trans.png";
+import gryf from "../../../../assets/img/gryf-trans.png";
+import napis from "../../../../assets/img/pcmc-napis-trans.png";
 import React from "react";
 import './Logo.css';
 
