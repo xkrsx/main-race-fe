@@ -117,7 +117,7 @@ export const RaceView = () => {
                                 : <p>click Race in menu to log in</p>
                             }
                         </div>
-                        <div className="courier_penalties">SUM:
+                        <div className="courier_sum">SUM:
                             {courierJobList[0] ?
                                 <p>{courierJobList[0].courierPoints - courierJobList[0].courierPenalties}</p>
                                 : <p>click Race in menu to log in</p>

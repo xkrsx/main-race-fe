@@ -1,60 +1,46 @@
 import React, {useEffect, useState} from "react";
 import './ResultsView.css';
-import {useFormik} from "formik";
-import {ResultsListRow} from "../components/layout/Results/ResultsListRow";
+import {Spinner} from "../components/layout/common/Spinner/Spinner";
+import {ResultsTable} from "../components/layout/Results/ResultsTable";
+import Countdown from "react-countdown";
 
 export const ResultsView = () => {
     const [raceResults, setRaceResults] = useState(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const formikResults = useFormik({
-        initialValues: {},
-        onSubmit: async (values) => {
-            const showRaceResults = async () => {
-                setRaceResults(null);
-                const res = await fetch(`http://localhost:3001/results`);
-                const data = await res.json();
-                setRaceResults(data.raceResults);
-            };
-        }
-    });
+    const showRaceResults = async () => {
+        setRaceResults(null);
+        const res = await fetch(`http://localhost:3001/results`);
+        const data = await res.json();
+        setRaceResults(data.raceResults);
+    };
 
-    const results = raceResults.map(result =>
-        <ResultsListRow
-            key={result.id}
-            number={result.courierNumber}
-            name={result.courierName}
-            category={result.category}
-            points={result.points}
-            penalties={result.penalties}
-        />)
+    let timeLeft: number;
 
-            return (<>
-                <div className="results-title">
-                    <h1>Results</h1>
-                    <h3>Live updated</h3>
-                </div>
-                <form>
+    useEffect(() => {
+        showRaceResults();
+    }, []);
+
+    setInterval(() => {
+        timeLeft = Math.floor((1000 * 60 * 5) / (1000 * 60));
+        showRaceResults()
+    }, 1000 * 60 * 5);
+
+    if (raceResults === null || loading) {
+        return <Spinner/>;
+    }
+
+    return (<>
+            <div className="results-title">
+                <h1>Results</h1>
+                <h3>Live updated in <Countdown date={Date.now() + 1000 * 60 * 5}/></h3>
+            </div>
+            <form>
 
 
-                </form>
+            </form>
+            <ResultsTable resultsList={raceResults}/>
 
-                <table>
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Number</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Points</th>
-                        <th>Penalties</th>
-                        <th>Sum</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-
-                </table>
-            </>
-            )
-            }
+        </>
+    )
+}

@@ -1,7 +1,7 @@
 import {Category} from "types";
 
 interface Props {
-    id: string;
+    courierId: string;
     number: number;
     name: string;
     category: Category;
@@ -9,7 +9,7 @@ interface Props {
     penalties: number;
 }
 
-export const ResultsListRow = (props: Props) => <tr key={props.id}>
+export const ResultsListRow = (props: Props) => <tr key={props.courierId}>
     <td>{props.number}</td>
     <td>{props.name}</td>
     <td>{props.category}</td>
