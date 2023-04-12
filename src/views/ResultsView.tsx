@@ -15,14 +15,11 @@ export const ResultsView = () => {
         setRaceResults(data.raceResults);
     };
 
-    let timeLeft: number;
-
     useEffect(() => {
         showRaceResults();
     }, []);
 
     setInterval(() => {
-        timeLeft = Math.floor((1000 * 60 * 5) / (1000 * 60));
         showRaceResults()
     }, 1000 * 60 * 5);
 
@@ -31,16 +28,14 @@ export const ResultsView = () => {
     }
 
     return (<>
-            <div className="results-title">
-                <h1>Results</h1>
-                <h3>Live updated in <Countdown date={Date.now() + 1000 * 60 * 5}/></h3>
-            </div>
-            <form>
-
-
-            </form>
-            <ResultsTable resultsList={raceResults}/>
-
-        </>
-    )
+        <div className="results-title">
+            <h1>Results</h1>
+            <h3>
+                Live updated in <Countdown
+                date={Date.now() + 1000 * 60 * 5}
+            />
+            </h3>
+        </div>
+        <ResultsTable resultsList={raceResults}/>
+    </>)
 }
