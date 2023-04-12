@@ -1,0 +1,13 @@
+.results-title h1, h3{
+    text-align: center;
+    margin: 1rem auto;
+}
+
+tr:nth-child(even) {
+    background-color: #b2a4a4;
+}
+
+tr.jobs:hover {
+    background-color: #ddd;
+}
+

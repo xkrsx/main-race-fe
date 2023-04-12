@@ -1,0 +1,7 @@
+tr:nth-child(even) {
+    background-color: #b2a4a4;
+}
+
+tr.jobs:hover {
+    background-color: #ddd;
+}
