@@ -38,6 +38,13 @@ docelowo chcę projekt przepisać i dodać porządne logowanie. na tę chwilę (
 * co idzie za powyższym, jeśli nie ma zadań, nie można zrobić walidacji kodu A, który automatycznie odblokowuje input kodu B. po poprawnym uzupełnieniu kodu B zadanie trafia do zakończonych, punkty karne są odejmowane z kolumny kary, punkty zadania dodawane do kolumny punktów oraz finalnie jest liczona różnica między punktami a karami i uzupełniana w kolumnie 'sum' w tabeli zawodnicy. Aby zrobić 'demo' dodałem kilka zadań ręcznie ze strony bazy danych.
 * w związku z sytuacją rodzinną niestety tylko rozpocząłem pracę w BE nad 'adminem', gdzie docelowo będą formularze dodawania zawodników oraz zadań. Ten widok jest na razie pusty.
 
+ROZWÓJ:
+* zaawansowane logowanie
+* widok admina
+* optymalizacja kodu
+* RWD i mobile-first
+* dwa języki: angielski i polski
+
 PODSUMOWANIE
 * Projekt końcowy na kurs, ale na pewno będę dalej nad nim pracował, zwłaszcza korygował powyższe problemy już on-line. Dodaję to, żeby nie było, że oszukuję i wysłałem projekt. Owszem, będę go sobie dłubał, ale nie dlatego, że oszukałem termin. Możliwe, że wydłubię problem zanim przejrzycie kod. :)
 * Dzięki za zrozumienie i z niecierpliwością czekam na ocenę!
