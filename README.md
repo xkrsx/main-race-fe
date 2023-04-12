@@ -1,46 +1,30 @@
-# Getting Started with Create React App
+- OPIS APKI:
+Projekt końcowy to aplikacja do zarządzania Wyścigiem Głównym (Main Race) podczas tegorocznych Mistrzostw Polski Kurierów Rowerowych (tak, istnieje coś takiego), które organizuję w sierpniu. Zawodnicy jadąc na punkt kontrolny proszą o kod weryfikacyjny, który wpisują w apce. Poprawny odblokowuje im możliwość wpisania kodu na kolejnym punkcie. Wpisanie drugiego kodu skutkuje zamknięciem zadania, dodaniem punktów. Niezamknięte zadania skutkują minusowymi punktami.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- WIDOKI:
+( * Home: link do strony głównej mistrzostw )
+* Race: zawodnicy mogą się logować przy pomocy wybranego przez siebie numeru startowego oraz (docelowo) losowo wybranego 4-cyfrowego pinu/hasła. Po zalogowaniu widok na czas wyścigu: losowanie kolejnego zadania (max. 5 otwartych), lista otwartych i ukończonych zadań, krótkie info o zawodniku (numer, * imię, kategoria, punkty).
+* Results: odświeżana na żywo (co 5 minut) lista wyników.
+* Admin (w budowie): dodawanie nowych zawodników, nowych zadań, nowych punktów kontrolnych.
 
-## Available Scripts
+- 
+Niestety, ze względu na sprawy rodzinne (diagnoza ostrego nowotworu w najbliższej rodzinie dwa tygodnie przed terminem końcowym) musiałem podjąć decyzję, by skupić się bardziej na projekcie, a nie etapie z Nesta. Dlatego logowanie i walidacja użytkownika jest dość banalna, ale działa. :) Podanie błędnych danych nie przepuszcza do widoku wyścigu. Błędne dane w url strony zwracają panel logowania.
+docelowo chcę projekt przepisać i dodać porządne logowanie. na tę chwilę (a może nawet na tenże wyścig) to wystarcza.
 
-In the project directory, you can run:
+- DZIAŁAJĄCE DANE DO LOGOWANIA (tabela 'couriers'):
+![Screen Shot 2023-04-13 at 01 07 39](https://user-images.githubusercontent.com/98549349/231605610-0c581f95-41aa-4e2e-9d06-6cc22a82d724.png)
 
-### `npm start`
+- KODY WALIDACYJNE DLA ZADAŃ (tabela 'jobs'):
+![Screen Shot 2023-04-13 at 01 07 25](https://user-images.githubusercontent.com/98549349/231605733-3bcec061-dfc4-43c6-854b-009d6e05866e.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- WIDOK PRZYDZIELONEGO ZADANIA (tabela 'couriers_jobs'):
+![Screen Shot 2023-04-13 at 01 07 51](https://user-images.githubusercontent.com/98549349/231607004-4f1acddf-1435-4d5a-90e5-efad4eb20aa8.png)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+PROBLEMY:
+- najważniejsza funkcja, czyli pobieranie nowego zadania (dodawanie go do listy, bazy danych) po wrzuceniu na hosting nie działa, w przeciwieństwie do lokalnego testowania. niestety, kilkugodzinna walka z networkhostingiem sprawiła, że udało mi się uruchomić i wysłać projekt chwilę przed północą, więc nie zdążyłem już się temu przyjrzeć.
+- co idzie za powyższym, jeśli nie ma zadań, nie można zrobić walidacji kodu A, który automatycznie odblokowuje input kodu B. po poprawnym uzupełnieniu kodu B zadanie trafia do zakończonych, punkty karne są odejmowane z kolumny kary, punkty zadania dodawane do kolumny punktów oraz finalnie jest liczona różnica między punktami a karami i uzupełniana w kolumnie 'sum' w tabeli zawodnicy. Aby zrobić 'demo' dodałem kilka zadań ręcznie ze strony bazy danych.
+- w związku z sytuacją rodzinną niestety tylko rozpocząłem pracę nad 'adminem', gdzie docelowo będą formularze dodawania zawodników oraz zadań.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Dzięki za zrozumienie i z niecierpliwością czekam na ocenę!
+Projekt końcowy na kurs, ale na pewno będę dalej nad nim pracował, zwłaszcza korygował powyższe problemy już on-line. Dodaję to, żeby nie było, że oszukuję i wysłałem projekt. Owszem, będę go sobie dłubał, ale nie dlatego, że oszukałem termin. :)
