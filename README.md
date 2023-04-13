@@ -36,11 +36,11 @@ WIDOK PRZYDZIELONEGO ZADANIA (tabela 'couriers_jobs'):
 ![Screen Shot 2023-04-13 at 01 07 51](https://user-images.githubusercontent.com/98549349/231607004-4f1acddf-1435-4d5a-90e5-efad4eb20aa8.png)
 
 PROBLEMY:
-* Niestety, ze względu na sprawy rodzinne (diagnoza ostrego nowotworu w najbliższej rodzinie dwa tygodnie przed terminem końcowym) musiałem podjąć decyzję, by skupić się bardziej na projekcie, a nie etapie z Nesta. Dlatego logowanie i walidacja użytkownika jest dość banalna, ale działa. :) Podanie błędnych danych nie przepuszcza do widoku wyścigu. Błędne dane w url strony zwracają panel logowania.
+* LOGOWANIE: Niestety, ze względu na sprawy rodzinne (diagnoza ostrego nowotworu w najbliższej rodzinie dwa tygodnie przed terminem końcowym) musiałem podjąć decyzję, by skupić się bardziej na projekcie, a nie etapie z Nesta. Dlatego logowanie i walidacja użytkownika jest dość banalna, ale działa. :) Podanie błędnych danych nie przepuszcza do widoku wyścigu. Błędne dane w url strony zwracają panel logowania.
 docelowo chcę projekt przepisać i dodać porządne logowanie. na tę chwilę (a może nawet na tenże wyścig) to wystarcza.
-* najważniejsza funkcja, czyli pobieranie nowego zadania (dodawanie go do listy, bazy danych) po wrzuceniu na hosting nie działa, w przeciwieństwie do lokalnego testowania. niestety, kilkugodzinna walka z networkhostingiem sprawiła, że udało mi się uruchomić i wysłać projekt chwilę przed północą, więc nie zdążyłem już się temu przyjrzeć.
+* NOWE ZADANIE: najważniejsza funkcja, czyli pobieranie nowego zadania (dodawanie go do listy, bazy danych) po wrzuceniu na hosting nie działa, w przeciwieństwie do lokalnego testowania. niestety, kilkugodzinna walka z networkhostingiem sprawiła, że udało mi się uruchomić i wysłać projekt chwilę przed północą, więc nie zdążyłem już się temu przyjrzeć.
 * co idzie za powyższym, jeśli nie ma zadań, nie można zrobić walidacji kodu A, który automatycznie odblokowuje input kodu B. po poprawnym uzupełnieniu kodu B zadanie trafia do zakończonych, punkty karne są odejmowane z kolumny kary, punkty zadania dodawane do kolumny punktów oraz finalnie jest liczona różnica między punktami a karami i uzupełniana w kolumnie 'sum' w tabeli zawodnicy. Aby zrobić 'demo' dodałem kilka zadań ręcznie ze strony bazy danych.
-* w związku z sytuacją rodzinną niestety tylko rozpocząłem pracę w BE nad 'adminem', gdzie docelowo będą formularze dodawania zawodników oraz zadań. Ten widok jest na razie pusty.
+* ADMIN: w związku z sytuacją rodzinną niestety tylko rozpocząłem pracę w BE nad 'adminem', gdzie docelowo będą formularze dodawania zawodników oraz zadań. Ten widok jest na razie pusty.
 
 ROZWÓJ:
 * zaawansowane logowanie
