@@ -51,4 +51,4 @@ ROZWÓJ:
 
 PODSUMOWANIE
 * Projekt końcowy na kurs, ale na pewno będę dalej nad nim pracował, zwłaszcza korygował powyższe problemy już on-line. Dodaję to, żeby nie było, że oszukuję i wysłałem projekt. Owszem, będę go sobie dłubał, ale nie dlatego, że oszukałem termin. Możliwe, że wydłubię problem zanim przejrzycie kod. :)
-* Dzięki za zrozumienie i z niecierpliwością czekam na ocenę!
+* Dzięki za zrozumienie i z niecierpliwością czekam na ocenę! Będę również wdzięczny za podpowiedź ws. problemu z 'nowym zadaniem'. :)
