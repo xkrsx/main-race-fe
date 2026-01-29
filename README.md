@@ -45,7 +45,7 @@ list refreshes every five minutes.
   <img src="https://user-images.githubusercontent.com/98549349/231605733-3bcec061-dfc4-43c6-854b-009d6e05866e.png" alt="Screen Shot 2023-04-13 at 01 07 25"/>
 </p>
 
-## VIEW OF ACCEPTED/STARTED JOB
+## STARTED/UNFINISHED JOB
 ('couriers_jobs' table)
 <p align="center">
   <img src="https://user-images.githubusercontent.com/98549349/231607004-4f1acddf-1435-4d5a-90e5-efad4eb20aa8.png" alt="Screen Shot 2023-04-13 at 01 07 51"/>
